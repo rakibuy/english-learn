@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Verb Learning - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-book-open text-4xl text-indigo-600"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">English Verb Learning</h1>
+                        <p class="text-sm text-gray-600">Master English Verbs with Ease</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        
+        <!-- Welcome Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Welcome to Your Learning Dashboard</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                শিখুন ইংরেজি ভার্ব খুব সহজভাবে - Forms, Meanings, এবং Examples সহ
+            </p>
+        </div>
+
+        <!-- Navigation Cards -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            
+            <!-- Main Verbs Card -->
+            <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+                 onclick="window.location.href='verbs.html'">
+                <div class="p-8">
+                    <div class="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-language text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Main Verbs</h3>
+                    <p class="text-gray-600 mb-4">
+                        সকল Main Verbs শিখুন - 5টি Forms, Bangla Meaning, এবং Examples সহ
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Category-wise Organization</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>5 Verb Forms</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Search & Filter System</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Bangla Meanings & Examples</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-indigo-700 transition-all duration-300">
+                        Start Learning <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Auxiliary Verbs Card -->
+            <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+                 onclick="window.location.href='auxiliary.html'">
+                <div class="p-8">
+                    <div class="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-list-check text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Auxiliary Verbs</h3>
+                    <p class="text-gray-600 mb-4">
+                        সকল Auxiliary Verbs শিখুন - Be, Do, Have, এবং Modal Verbs
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Be Verbs (am, is, are, was, were)</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Do Verbs (do, does, did)</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Have Verbs (have, has, had)</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Modal Verbs (can, could, may, etc.)</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-700 transition-all duration-300">
+                        Explore Auxiliary <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                <div class="text-3xl font-bold text-blue-600 mb-2">500+</div>
+                <div class="text-gray-600">Main Verbs</div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                <div class="text-3xl font-bold text-purple-600 mb-2">24</div>
+                <div class="text-gray-600">Auxiliary Verbs</div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                <div class="text-3xl font-bold text-green-600 mb-2">10+</div>
+                <div class="text-gray-600">Categories</div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                <div class="text-3xl font-bold text-orange-600 mb-2">100%</div>
+                <div class="text-gray-600">Free Access</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-16 py-8 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600">
+                <i class="fas fa-heart text-red-500"></i> Made with love for English learners
+            </p>
+            <p class="text-gray-500 text-sm mt-2">© 2026 English Verb Learning Platform</p>
+        </div>
+    </footer>
+
+</body>
+</html>
