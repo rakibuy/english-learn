@@ -3,7 +3,7 @@ let allVerbs = [];
 let filteredVerbs = [];
 let categories = [];
 let currentPage = 1;
-const itemsPerPage = 10;
+const itemsPerPage = 25;
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
@@ -1015,14 +1015,18 @@ function populateCategoryFilter() {
     });
 }
 
-// Filter verbs based on search and category
+// Filter verbs based on search, category, and ID
 function filterVerbs() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const categoryId = document.getElementById('categoryFilter').value;
+    const idFilter = document.getElementById('idFilter').value;
     
     filteredVerbs = allVerbs.filter(verb => {
         // Category filter
         const categoryMatch = !categoryId || verb.categoryId == categoryId;
+        
+        // ID filter - show all verbs from this ID onwards
+        const idMatch = !idFilter || verb.id >= parseInt(idFilter);
         
         // Search filter
         const searchMatch = !searchTerm || 
@@ -1031,7 +1035,7 @@ function filterVerbs() {
             verb.example.toLowerCase().includes(searchTerm) ||
             Object.values(verb.forms).some(form => form.toLowerCase().includes(searchTerm));
         
-        return categoryMatch && searchMatch;
+        return categoryMatch && idMatch && searchMatch;
     });
     
     currentPage = 1;
@@ -1065,12 +1069,9 @@ function updateTable() {
         const rowNumber = startIndex + index + 1;
         return `
             <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-1 py-1 text-gray-600 font-medium">${rowNumber}</td>
-                  <td class="px-1 py-1">
-                    <button onclick="showVerbModal(${verb.id})" class="px-3 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors font-semibold">
-                        <i class="fas fa-eye mr-1"></i>
-                    </button>
-                </td>
+                <td class="px-1 py-1 text-gray-600 font-bold text-indigo-600">${verb.id}</td>
+               
+                 
                 <td class="px-1 py-1">
                     <button onclick="showVerbModal(${verb.id})" class="font-semibold text-indigo-700 text-lg hover:text-indigo-900 hover:underline cursor-pointer transition-colors">
                         ${verb.verb}
@@ -1078,6 +1079,12 @@ function updateTable() {
                 </td>
                 <td class="px-1 py-1">
                     <span class="text-gray-600 italic">"${verb.example}"</span>
+                </td>
+
+                 <td class="px-1 py-1">
+                    <button onclick="showVerbModal(${verb.id})" class="px-1 py-1 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors font-semibold">
+                        <i class="fas fa-eye mr-0"></i>
+                    </button>
                 </td>
               
             </tr>
