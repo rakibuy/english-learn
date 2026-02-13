@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Common Words - English Learning</title>
+    <title>Irregular Verbs - English Learning</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -24,7 +24,7 @@
             }
         }
 
-        #wordModal.show > div {
+        #verbModal.show > div {
             animation: fadeIn 0.2s ease-out;
         }
 
@@ -66,7 +66,7 @@
                         <i class="fas fa-arrow-left text-xl md:text-2xl"></i>
                     </a>
                     <div>
-                        <p class="text-xs md:text-sm text-gray-600">Common Words</p>
+                        <p class="text-xs md:text-sm text-gray-600">Irregular Verbs</p>
                     </div>
                 </div>
             </div>
@@ -96,31 +96,18 @@
             <!-- Collapsible Filter Content -->
             <div id="filterContent" class="filter-content show">
                 <div class="px-2 pb-2 md:px-3 md:pb-3">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3">
                         
                         <!-- Search Box -->
                         <div class="md:col-span-2">
                             <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">
-                                <i class="fas fa-search mr-1"></i>Search Words
+                                <i class="fas fa-search mr-1"></i>Search Verbs
                             </label>
                             <input type="text" 
                                    id="searchInput" 
-                                   placeholder="Search by word, meaning..." 
+                                   placeholder="Search by verb, past, participle, meaning..." 
                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm md:text-base"
-                                   oninput="filterWords()">
-                        </div>
-
-                        <!-- Type Filter - Mobile Responsive -->
-                        <div>
-                            <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">
-                                <i class="fas fa-filter mr-1"></i>Filter by Type
-                            </label>
-                            <select id="typeFilter" 
-                                    class="w-full px-2 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm md:text-base appearance-none bg-white"
-                                    style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.5em 1.5em; padding-right: 2.5rem;"
-                                    onchange="filterWords()">
-                                <option value="">All Types</option>
-                            </select>
+                                   oninput="filterVerbs()">
                         </div>
 
                         <!-- ID Filter -->
@@ -133,7 +120,7 @@
                                    placeholder="Enter ID" 
                                    min="1"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm md:text-base"
-                                   oninput="filterWords()">
+                                   oninput="filterVerbs()">
                         </div>
 
                     </div>
@@ -142,11 +129,11 @@
                     <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs md:text-sm">
                         <div id="resultsInfo" class="text-gray-600">
                             <i class="fas fa-info-circle mr-1"></i>
-                            Loading words...
+                            Loading verbs...
                         </div>
                         <div class="text-gray-600">
                             <i class="fas fa-book mr-1"></i>
-                            Total: <span id="totalCount" class="font-semibold">0</span> words
+                            Total: <span id="totalCount" class="font-semibold">0</span> verbs
                         </div>
                     </div>
                 </div>
@@ -154,18 +141,18 @@
 
         </div>
 
-        <!-- Words Table -->
+        <!-- Verbs Table -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white">
                         <tr>
                             <th class="px-2 py-2 text-left text-xs md:text-sm font-semibold">ID</th>
-                            <th class="px-2 py-2 text-left text-xs md:text-sm font-semibold">Word</th>
+                            <th class="px-2 py-2 text-left text-xs md:text-sm font-semibold">Base Form</th>
                             <th class="px-2 py-2 text-left text-xs md:text-sm font-semibold">Details</th>
                         </tr>
                     </thead>
-                    <tbody id="wordsTableBody" class="divide-y divide-gray-200">
+                    <tbody id="verbsTableBody" class="divide-y divide-gray-200">
                         <!-- Dynamic content will be inserted here -->
                     </tbody>
                 </table>
@@ -174,13 +161,13 @@
             <!-- Loading State -->
             <div id="loadingState" class="text-center py-12">
                 <i class="fas fa-spinner fa-spin text-4xl text-indigo-600 mb-3"></i>
-                <p class="text-gray-600">Loading words...</p>
+                <p class="text-gray-600">Loading verbs...</p>
             </div>
 
             <!-- Empty State -->
             <div id="emptyState" class="text-center py-12 hidden">
                 <i class="fas fa-search text-4xl text-gray-400 mb-3"></i>
-                <p class="text-gray-600">No words found matching your criteria</p>
+                <p class="text-gray-600">No verbs found matching your criteria</p>
             </div>
         </div>
 
@@ -215,17 +202,17 @@
         </div>
     </footer>
 
-    <!-- Word Details Modal - Professional & Clean Design -->
-    <div id="wordModal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-center justify-center p-3">
+    <!-- Verb Details Modal - Professional & Clean Design -->
+    <div id="verbModal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-center justify-center p-3">
         <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[95vh] flex flex-col">
             
             <!-- Modal Header - Compact -->
             <div class="bg-indigo-600 text-white px-4 py-3 rounded-t-lg flex items-center justify-between flex-shrink-0">
                 <div class="flex-1 min-w-0">
-                    <h2 id="modalWordName" class="text-lg md:text-xl font-bold truncate">Word</h2>
-                    <!-- <p id="modalWordType" class="text-xs md:text-sm opacity-90">Type</p> -->
+                    <h2 id="modalVerbName" class="text-lg md:text-xl font-bold truncate">Verb</h2>
+                    <p id="modalVerbType" class="text-xs md:text-sm opacity-90">Type</p>
                 </div>
-                <button onclick="closeWordModal()" class="ml-3 text-white hover:bg-indigo-700 p-1.5 rounded transition-colors flex-shrink-0">
+                <button onclick="closeVerbModal()" class="ml-3 text-white hover:bg-indigo-700 p-1.5 rounded transition-colors flex-shrink-0">
                     <i class="fas fa-times text-lg"></i>
                 </button>
             </div>
@@ -250,6 +237,14 @@
                     <span id="modalPartOfSpeech" class="inline-block bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-semibold">
                         Loading...
                     </span>
+                </div>
+
+                <!-- Verb Forms -->
+                <div class="mb-3 pb-3 border-b border-gray-200">
+                    <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Verb Forms</p>
+                    <div id="modalVerbForms" class="space-y-2">
+                        <!-- Verb forms will be inserted here -->
+                    </div>
                 </div>
 
                 <!-- Definitions -->
@@ -303,7 +298,7 @@
                     <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
                         <div class="flex items-start">
                             <i class="fas fa-exclamation-triangle text-yellow-600 mt-0.5 mr-2"></i>
-                            <p class="text-sm text-yellow-800">Dictionary data not available for this word.</p>
+                            <p class="text-sm text-yellow-800">Dictionary data not available for this verb.</p>
                         </div>
                     </div>
                 </div>
@@ -312,7 +307,7 @@
 
             <!-- Modal Footer - Compact -->
             <div class="px-4 py-3 border-t bg-gray-50 rounded-b-lg flex-shrink-0">
-                <button onclick="closeWordModal()" class="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors font-medium text-sm md:text-base">
+                <button onclick="closeVerbModal()" class="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors font-medium text-sm md:text-base">
                     Close
                 </button>
             </div>
@@ -321,8 +316,8 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="js/data.js"></script>
-    <script src="js/common_words.js"></script>
+    <script src="js/irregular_verb.js"></script>
+    <script src="js/irregular_verbs.js"></script>
     
     <!-- Toggle Filter Section Script -->
     <script>
