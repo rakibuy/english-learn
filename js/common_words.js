@@ -242,7 +242,7 @@ async function showWordModal(wordId) {
     
     // Set header info
     document.getElementById('modalWordName').textContent = word.word;
-    document.getElementById('modalWordType').textContent = wordType ? wordType.name : 'Unknown';
+    document.getElementById('modalHeadBanglaMeaning').textContent = word.banglaMeaning;
     
     // Show loading state
     document.getElementById('modalLoadingState').style.display = 'block';
@@ -268,7 +268,7 @@ async function showWordModal(wordId) {
 function hideAllModalSections() {
     const sections = [
         'modalPronunciation', 'modalAudio', 'modalPartOfSpeech',
-        'modalDefinitions', 'modalBanglaMeaning', 'modalExamples',
+        'modalDefinitions', 'modalExamples',
         'modalSynonymsSection', 'modalAntonymsSection'
     ];
     sections.forEach(id => {
@@ -308,9 +308,9 @@ function populateModalWithApiData(apiData, word) {
     document.getElementById('modalDefinitions').innerHTML = definitionsHtml;
     
     // Bangla Meaning
-    document.getElementById('modalBanglaMeaning').innerHTML = `
-        <p class="text-base md:text-lg font-bold text-gray-900">${word.banglaMeaning}</p>
-    `;
+    // document.getElementById('modalBanglaMeaning').innerHTML = `
+    //     <p class="text-base md:text-lg font-bold text-gray-900">${word.banglaMeaning}</p>
+    // `;
     
     // Examples
     if (apiData.examples.length > 0) {
@@ -348,9 +348,9 @@ function populateModalWithApiData(apiData, word) {
 function populateModalWithBasicData(word, wordType) {
     document.getElementById('modalPronunciation').textContent = 'Not available';
     document.getElementById('modalPartOfSpeech').textContent = wordType ? wordType.name : 'Unknown';
-    document.getElementById('modalBanglaMeaning').innerHTML = `
-        <p class="text-base md:text-lg font-bold text-gray-900">${word.banglaMeaning}</p>
-    `;
+    // document.getElementById('modalBanglaMeaning').innerHTML = `
+    //     <p class="text-base md:text-lg font-bold text-gray-900">${word.banglaMeaning}</p>
+    // `;
 }
 
 function showModalError() {

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning - Reading Paragraphs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .paragraph-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .paragraph-card:hover {
+            border-left-color: #4f46e5;
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.15);
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-indigo-600 hover:text-indigo-800 transition-colors">
+                        <i class="fas fa-arrow-left text-2xl"></i>
+                    </a>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">📘 English Reading Practice</h1>
+                        <p class="text-sm text-gray-600">Select a paragraph to read and learn new words</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Info Banner -->
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-8 rounded-lg">
+            <div class="flex items-start">
+                <i class="fas fa-info-circle text-indigo-500 text-xl mr-3 mt-1"></i>
+                <div>
+                    <h3 class="font-bold text-indigo-900 mb-1">How to use this feature:</h3>
+                    <p class="text-indigo-800 text-sm">
+                        1. Click on any paragraph to read the full content<br>
+                        2. Double-click on any word to see its Bengali meaning, English definition, example sentence, and audio pronunciation
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paragraphs List -->
+        <div id="paragraphsList" class="max-w-5xl mx-auto space-y-6">
+            <!-- Paragraphs will be loaded here dynamically -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-16 py-8 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600">
+                <i class="fas fa-heart text-red-500"></i> Made with love for English learners
+            </p>
+            <p class="text-gray-500 text-sm mt-2">© 2026 English Learning Platform</p>
+        </div>
+    </footer>
+
+    <script>
+        // Paragraph data
+        const paragraphs = [
+            {
+                id: 1,
+                title: "The History of Computers",
+                category: "Technology",
+                difficulty: "Intermediate",
+                summary: "Learn about the evolution of computers from room-sized machines to portable devices. Discover how technology has transformed modern society.",
+                content: "The computer is a remarkable invention that has changed the way we live and work. Initially developed for military and scientific purposes, computers have evolved from enormous room-sized machines into small portable devices. Early computers were so large that they occupied entire rooms and consumed massive amounts of electricity. Today, millions of people use personal computers, laptops, and smartphones for various purposes including education, entertainment, and business. The internet has connected computers worldwide, creating a global network of information and communication. This technological revolution has transformed society in countless ways, making information more accessible and connecting people across the globe."
+            },
+            {
+                id: 2,
+                title: "Benefits of Reading Books",
+                category: "Education",
+                difficulty: "Beginner",
+                summary: "Discover why reading is essential for brain development and personal growth. Learn how books can reduce stress and improve concentration.",
+                content: "Reading is an essential activity that provides numerous benefits to our brain and overall well-being. When we read, we expand our vocabulary, improve our concentration, and enhance our knowledge about the world. Books transport us to different worlds, introduce us to new ideas, and help us understand diverse perspectives and cultures. Reading also reduces stress and anxiety, providing a peaceful escape from daily pressures. Students who read regularly tend to perform better in their studies because reading strengthens critical thinking skills. Moreover, reading before bedtime can help improve sleep quality. Whether it is fiction, non-fiction, or educational material, reading is a powerful tool for personal growth and intellectual development."
+            },
+            {
+                id: 3,
+                title: "Environmental Conservation",
+                category: "Environment",
+                difficulty: "Intermediate",
+                summary: "Understand the importance of protecting our planet for future generations. Explore sustainable practices and renewable energy solutions.",
+                content: "Environmental conservation is the practice of protecting and preserving natural resources for future generations. Our planet faces serious environmental challenges including climate change, deforestation, and pollution. To address these issues, individuals and governments must work together to adopt sustainable practices. Renewable energy sources like solar and wind power can reduce our dependence on fossil fuels. Recycling plays a crucial role in reducing waste and conserving natural resources. Protecting forests and wildlife habitats is essential for maintaining biodiversity. Every person can contribute to environmental conservation by making conscious choices in their daily life, such as reducing plastic consumption, supporting environmental organizations, and promoting awareness about ecological issues."
+            },
+            {
+                id: 4,
+                title: "The Impact of Social Media",
+                category: "Technology",
+                difficulty: "Advanced",
+                summary: "Explore how social media has transformed communication and society. Learn about both positive and negative effects of digital platforms.",
+                content: "Social media has become an integral part of modern society, affecting how people communicate, share information, and build relationships. Platforms like Facebook, Twitter, and Instagram have billions of users worldwide. Social media enables instant communication across geographical boundaries, allowing people to maintain connections with friends and family. Businesses use social media for marketing and customer engagement. However, excessive use of social media can lead to negative consequences including addiction, cyberbullying, and mental health issues. Misinformation spreads rapidly through social media platforms, sometimes creating confusion and panic. It is important for users to develop digital literacy skills and use social media responsibly, being mindful of privacy concerns and critical about the information they consume."
+            },
+            {
+                id: 5,
+                title: "Healthy Lifestyle Habits",
+                category: "Health",
+                difficulty: "Beginner",
+                summary: "Learn essential habits for maintaining physical and mental health. Discover the importance of exercise, diet, and sleep.",
+                content: "Maintaining a healthy lifestyle is essential for preventing diseases and promoting overall well-being. Regular physical exercise strengthens the body, improves cardiovascular health, and enhances mental health by reducing stress and anxiety. A balanced diet rich in fruits, vegetables, and whole grains provides essential nutrients for optimal body function. Adequate sleep is crucial for recovery and healthy brain function, with most experts recommending seven to nine hours per night. Managing stress through meditation, yoga, or other relaxation techniques helps prevent burnout and improves quality of life. Avoiding harmful habits like smoking and excessive alcohol consumption significantly reduces health risks. Regular medical check-ups help detect potential health problems early. Building these healthy habits requires commitment and consistency, but the long-term benefits for both physical and mental health are invaluable."
+            },
+            {
+                id: 6,
+                title: "The Importance of Education",
+                category: "Education",
+                difficulty: "Beginner",
+                summary: "Education opens doors to opportunities and transforms lives. Learn why education is fundamental for personal and societal development.",
+                content: "Education is the foundation of personal development and societal progress. It empowers individuals with knowledge, skills, and critical thinking abilities necessary for success in life. Education opens doors to better career opportunities and higher earning potential. Beyond economic benefits, education promotes social equality by providing everyone with equal opportunities regardless of their background. An educated society is more likely to be democratic, peaceful, and prosperous. Education helps people make informed decisions about their health, finances, and civic responsibilities. In today's rapidly changing world, continuous learning and adaptation are essential. Quality education should be accessible to all, as it is a fundamental human right that can break the cycle of poverty and create positive change across generations."
+            },
+            {
+                id: 7,
+                title: "Climate Change and Global Warming",
+                category: "Environment",
+                difficulty: "Advanced",
+                summary: "Understand the science behind climate change and its global impact. Learn about solutions to combat this critical challenge.",
+                content: "Climate change represents one of the most significant challenges facing humanity today. Global warming, caused primarily by greenhouse gas emissions from human activities, is leading to rising temperatures, melting ice caps, and extreme weather events. The burning of fossil fuels for energy, deforestation, and industrial processes contribute significantly to carbon dioxide levels in the atmosphere. The consequences of climate change are already visible: prolonged droughts, intense hurricanes, flooding, and disruption of ecosystems. Addressing climate change requires immediate action at individual, national, and international levels. Transitioning to renewable energy sources, implementing carbon pricing, protecting forests, and adopting sustainable agricultural practices are crucial steps. While the challenge is immense, technological innovation and collective action can help mitigate the worst effects of climate change and create a sustainable future."
+            },
+            {
+                id: 8,
+                title: "The Power of Positive Thinking",
+                category: "Psychology",
+                difficulty: "Intermediate",
+                summary: "Discover how your mindset affects your life. Learn practical techniques to develop a more positive outlook.",
+                content: "Positive thinking is a mental attitude that focuses on the bright side of life and expects positive results. Research shows that optimistic people tend to be happier, healthier, and more successful than pessimistic individuals. A positive mindset helps reduce stress, improves immune system function, and increases resilience in facing challenges. Positive thinkers see problems as opportunities for growth rather than insurmountable obstacles. They maintain hope even in difficult situations and believe in their ability to overcome adversity. Developing positive thinking requires conscious effort and practice. Techniques include gratitude journaling, positive affirmations, surrounding yourself with supportive people, and reframing negative thoughts. However, positive thinking does not mean ignoring reality or problems; rather, it means approaching challenges with a constructive and solution-oriented mindset that empowers action and growth."
+            }
+        ];
+
+        // Category colors
+        const categoryColors = {
+            'Technology': 'bg-blue-100 text-blue-800',
+            'Education': 'bg-green-100 text-green-800',
+            'Environment': 'bg-emerald-100 text-emerald-800',
+            'Health': 'bg-pink-100 text-pink-800',
+            'Psychology': 'bg-purple-100 text-purple-800'
+        };
+
+        // Difficulty colors
+        const difficultyColors = {
+            'Beginner': 'bg-green-200 text-green-900',
+            'Intermediate': 'bg-yellow-200 text-yellow-900',
+            'Advanced': 'bg-red-200 text-red-900'
+        };
+
+        // Load paragraphs
+        function loadParagraphs() {
+            const container = document.getElementById('paragraphsList');
+            
+            paragraphs.forEach(para => {
+                const categoryClass = categoryColors[para.category] || 'bg-gray-100 text-gray-800';
+                const difficultyClass = difficultyColors[para.difficulty] || 'bg-gray-200 text-gray-900';
+                
+                const card = document.createElement('div');
+                card.className = 'paragraph-card bg-white rounded-lg shadow-md p-6 cursor-pointer';
+                card.onclick = () => {
+                    sessionStorage.setItem('selectedParagraph', JSON.stringify(para));
+                    window.location.href = 'paragraph-detail.html';
+                };
+                
+                card.innerHTML = `
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="category-badge ${categoryClass}">${para.category}</span>
+                            <span class="difficulty-badge ${difficultyClass}">${para.difficulty}</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-indigo-600 text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-3">${para.title}</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">${para.summary}</p>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <i class="fas fa-book-open mr-2"></i>
+                        <span>Click to read full paragraph</span>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadParagraphs);
+    </script>
+</body>
+</html>

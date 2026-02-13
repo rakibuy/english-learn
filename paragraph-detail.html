@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Practice - English Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Word highlighting on hover */
+        .clickable-word {
+            cursor: pointer;
+            position: relative;
+            padding: 2px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .clickable-word:hover {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Popup styles */
+        #wordPopup {
+            position: fixed;
+            background: white;
+            border: 3px solid #4f46e5;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            min-width: 350px;
+            max-width: 500px;
+            display: none;
+            animation: popupSlideIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        #wordPopup.show {
+            display: block;
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .popup-word {
+            font-size: 28px;
+            font-weight: 800;
+            color: #4f46e5;
+            text-transform: capitalize;
+        }
+
+        .popup-close {
+            cursor: pointer;
+            font-size: 28px;
+            color: #9ca3af;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+
+        .popup-close:hover {
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .popup-section {
+            margin-bottom: 20px;
+        }
+
+        .popup-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .popup-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #4f46e5;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e5e7eb;
+            border-top-color: #4f46e5;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+            margin-top: 8px;
+        }
+
+        .paragraph-content {
+            font-size: 17px;
+            line-height: 1.9;
+            color: #374151;
+            text-align: justify;
+        }
+
+        .highlight-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="paragraphs.html" class="text-indigo-600 hover:text-indigo-800 transition-colors">
+                        <i class="fas fa-arrow-left text-2xl"></i>
+                    </a>
+                    <div>
+                        <h1 id="pageTitle" class="text-2xl font-bold text-gray-800">Reading Practice</h1>
+                        <p class="text-sm text-gray-600">Double-click any word to learn more</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Instruction Banner -->
+            <div class="highlight-info">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fas fa-lightbulb text-2xl"></i>
+                    <h3 class="font-bold text-lg">Interactive Reading Mode</h3>
+                </div>
+                <p class="text-sm opacity-90">
+                    💡 Double-click any word to see Bengali meaning, English definition, example sentence, and pronunciation
+                </p>
+            </div>
+
+            <!-- Paragraph Content -->
+            <div class="bg-white rounded-xl shadow-xl p-8">
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span id="categoryBadge" class="px-3 py-1 rounded-full text-xs font-semibold"></span>
+                        <span id="difficultyBadge" class="px-3 py-1 rounded-full text-xs font-semibold"></span>
+                    </div>
+                    <h1 id="paragraphTitle" class="text-3xl font-bold text-gray-900 mb-4"></h1>
+                </div>
+                
+                <div id="paragraphContent" class="paragraph-content">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Word Detail Popup -->
+    <div id="wordPopup">
+        <div class="popup-header">
+            <div class="popup-word" id="popupWord"></div>
+            <div class="popup-close" onclick="closePopup()">&times;</div>
+        </div>
+
+        <div class="popup-section">
+            <div class="popup-label">
+                <i class="fas fa-globe"></i>
+                বাংলা অর্থ (Bengali Meaning)
+            </div>
+            <div class="popup-content" id="banglaMeaning">
+                <span class="loading-spinner"></span> Loading...
+            </div>
+        </div>
+
+        <div class="popup-section">
+            <div class="popup-label">
+                <i class="fas fa-book"></i>
+                English Meaning
+            </div>
+            <div class="popup-content" id="englishMeaning">
+                <span class="loading-spinner"></span> Loading...
+            </div>
+        </div>
+
+        <div class="popup-section">
+            <div class="popup-label">
+                <i class="fas fa-quote-left"></i>
+                Example Sentence
+            </div>
+            <div class="popup-content" id="exampleSentence">
+                <span class="loading-spinner"></span> Loading...
+            </div>
+        </div>
+
+        <div class="popup-section" id="audioSection" style="display: none;">
+            <div class="popup-label">
+                <i class="fas fa-volume-up"></i>
+                Audio Pronunciation
+            </div>
+            <div>
+                <audio id="audioPlayer" controls></audio>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/reading-feature.js"></script>
+</body>
+</html>

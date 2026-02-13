@@ -4,6 +4,7 @@ let filteredVerbs = [];
 let categories = [];
 let currentPage = 1;
 const itemsPerPage = 25;
+let verbApiCache = {}; // Cache for API responses
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
@@ -29,6 +30,53 @@ async function loadData() {
         showError('Failed to load data. Using sample data instead.');
         loadSampleData();
     }
+}
+
+// Fetch data from Dictionary API
+async function fetchDictionaryData(word) {
+    // Check cache first
+    if (verbApiCache[word.toLowerCase()]) {
+        return verbApiCache[word.toLowerCase()];
+    }
+
+    try {
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`);
+        
+        if (!response.ok) {
+            throw new Error('Word not found');
+        }
+
+        const data = await response.json();
+        const wordData = data[0];
+
+        // Extract relevant information
+        const meanings = wordData.meanings[0];
+        const definitions = meanings.definitions.slice(0, 3);
+        const examples = definitions.filter(d => d.example).map(d => d.example);
+        const audio = wordData.phonetics.find(p => p.audio)?.audio || null;
+        const phonetic = wordData.phonetic || '';
+
+        const extractedData = {
+            partOfSpeech: meanings.partOfSpeech,
+            definitions: definitions.map(d => d.definition),
+            examples: examples.length > 0 ? examples : [],
+            audio: audio,
+            phonetic: phonetic
+        };
+
+        // Cache the result
+        verbApiCache[word.toLowerCase()] = extractedData;
+        return extractedData;
+    } catch (error) {
+        console.error('Error fetching dictionary data:', error);
+        return null;
+    }
+}
+
+// Play audio function
+function playAudio(audioUrl) {
+    const audio = new Audio(audioUrl);
+    audio.play().catch(err => console.error('Error playing audio:', err));
 }
 
 // Load Categories
@@ -4075,11 +4123,16 @@ function loadSampleData() {
 // ===== MODAL FUNCTIONS =====
 
 // Show Verb Modal Popup
-function showVerbModal(verbId) {
+async function showVerbModal(verbId) {
     const verb = allVerbs.find(v => v.id === verbId);
     if (!verb) return;
     
     const category = categories.find(c => c.id === verb.categoryId);
+    
+    // Show modal with basic data
+    const modal = document.getElementById('verbModal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
     
     // Populate modal with verb data
     document.getElementById('modalVerbName').textContent = verb.verb;
@@ -4090,12 +4143,27 @@ function showVerbModal(verbId) {
     document.getElementById('modalFormPast').textContent = verb.forms.past;
     document.getElementById('modalFormPastParticiple').textContent = verb.forms.pastParticiple;
     document.getElementById('modalFormThirdPerson').textContent = verb.forms.thirdPerson;
-    document.getElementById('modalExample').textContent = verb.banglaMeaning;
+    document.getElementById('modalExample').textContent = verb.example;
     
-    // Show modal
-    const modal = document.getElementById('verbModal');
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden'; // Disable scroll
+    // Show loading state
+    document.getElementById('modalAudioSection').style.display = 'none';
+    document.getElementById('modalAudioLoading').style.display = 'block';
+    
+    // Fetch audio data
+    const apiData = await fetchDictionaryData(verb.verb);
+    
+    if (apiData && apiData.audio) {
+        document.getElementById('modalAudioLoading').style.display = 'none';
+        document.getElementById('modalAudioSection').style.display = 'block';
+        document.getElementById('modalAudio').innerHTML = `
+            <button onclick="playAudio('${apiData.audio}')" class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors">
+                <i class="fas fa-volume-up"></i>
+                <span>Play Audio</span>
+            </button>
+        `;
+    } else {
+        document.getElementById('modalAudioLoading').style.display = 'none';
+    }
 }
 
 // Close Verb Modal

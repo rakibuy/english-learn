@@ -36,7 +36,7 @@
         </div>
 
         <!-- Navigation Cards -->
-        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             
             <!-- Main Verbs Card -->
             <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
@@ -178,10 +178,45 @@
                 </div>
             </div>
 
+            <!-- English Reading Practice Card -->
+            <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+                 onclick="window.location.href='paragraphs.html'">
+                <div class="p-8">
+                    <div class="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-book-reader text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">📘 English Reading</h3>
+                    <p class="text-gray-600 mb-4">
+                        Paragraph পড়ে ইংরেজি শিখুন - Word এ Double-click করে অর্থ দেখুন
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Interactive Reading</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Bengali Meaning</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Example Sentences</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Audio Pronunciation</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all duration-300">
+                        Start Reading <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
         <!-- Quick Stats -->
-        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-5 gap-6 max-w-6xl mx-auto">
             <div class="bg-white p-6 rounded-xl shadow-lg text-center">
                 <div class="text-3xl font-bold text-blue-600 mb-2">500+</div>
                 <div class="text-gray-600">Main Verbs</div>
@@ -195,8 +230,12 @@
                 <div class="text-gray-600">Auxiliary Verbs</div>
             </div>
             <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                <div class="text-3xl font-bold text-orange-600 mb-2">100%</div>
-                <div class="text-gray-600">Free Access</div>
+                <div class="text-3xl font-bold text-orange-600 mb-2">101</div>
+                <div class="text-gray-600">Irregular Verbs</div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                <div class="text-3xl font-bold text-cyan-600 mb-2">8</div>
+                <div class="text-gray-600">Reading Articles</div>
             </div>
         </div>
 
