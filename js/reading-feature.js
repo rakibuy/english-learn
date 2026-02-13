@@ -60,12 +60,29 @@ function makeWordsClickable(text) {
 function showWordPopup(word, event) {
     const popup = document.getElementById('wordPopup');
     
-    // Position popup near cursor
-    const x = event.clientX + 10;
-    const y = event.clientY + 10;
-    
-    popup.style.left = x + 'px';
-    popup.style.top = y + 'px';
+    // Position popup based on screen size
+    if (window.innerWidth > 640) {
+        // Desktop: position near cursor
+        let x = event.clientX + 10;
+        let y = event.clientY + 10;
+        
+        // Keep popup within viewport
+        if (x + 500 > window.innerWidth) {
+            x = window.innerWidth - 520;
+        }
+        if (y + 400 > window.innerHeight) {
+            y = window.innerHeight - 420;
+        }
+        
+        popup.style.left = x + 'px';
+        popup.style.top = y + 'px';
+        popup.style.transform = 'none';
+    } else {
+        // Mobile: center on screen
+        popup.style.left = '50%';
+        popup.style.top = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+    }
     
     // Show popup
     popup.classList.add('show');
@@ -186,7 +203,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Make popup draggable
+// Make popup draggable (only on desktop)
 let isDragging = false;
 let currentX;
 let currentY;
@@ -196,6 +213,11 @@ let initialY;
 const popup = document.getElementById('wordPopup');
 
 popup.addEventListener('mousedown', (e) => {
+    // Only allow dragging on desktop
+    if (window.innerWidth <= 640) {
+        return;
+    }
+    
     if (e.target.classList.contains('popup-close') || e.target.tagName === 'AUDIO') {
         return;
     }
@@ -205,12 +227,18 @@ popup.addEventListener('mousedown', (e) => {
 });
 
 document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
+    if (isDragging && window.innerWidth > 640) {
         e.preventDefault();
         currentX = e.clientX - initialX;
         currentY = e.clientY - initialY;
+        
+        // Keep popup within viewport
+        currentX = Math.max(0, Math.min(currentX, window.innerWidth - popup.offsetWidth));
+        currentY = Math.max(0, Math.min(currentY, window.innerHeight - popup.offsetHeight));
+        
         popup.style.left = currentX + 'px';
         popup.style.top = currentY + 'px';
+        popup.style.transform = 'none';
     }
 });
 
